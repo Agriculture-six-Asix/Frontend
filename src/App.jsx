@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import RootLayout from "./layouts/RootLayout"
-import LoginLayout from "./layouts/LoginLayout"
-import RegisterLayout from "./layouts/RegisterLayout"
+import AuthLayout from "./layouts/AuthLayout"
 import ForgotPassLayout from "./layouts/ForgotPassLayout"
 import ImageLogo from "/assets/logo-app.png"
 import ProfileLayout from "./layouts/ProfileLayout"
@@ -26,8 +25,7 @@ function App() {
       ) : (
         <div className="opacity-0 animate-fade-in">
           <RootLayout />
-          <LoginLayout />
-          <RegisterLayout />
+          <AuthLayout />
           <ForgotPassLayout />
           <ProfileLayout />
         </div>

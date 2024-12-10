@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import UlasanList from "../components/Ulasan/UlasanList"
 import UlasanForm from "../components/Ulasan/UlasanForm"
+import { useAuth } from '../context/AuthContext';
 
 function Ulasan(){
     const [activeSection, setActiveSection] = useState("ulasan-form"); // Keeps track of the active section
+    const { user } = useAuth();
 
     const togglePopup = (section) => {
         setActiveSection(section === activeSection ? null : section)
@@ -20,7 +22,7 @@ function Ulasan(){
             </ul>
             <section className="flex h-lvh bg-white animate-fade-in">
                 <div className="hidden lg:block lg:w-2/6 min-h-lvh">
-                    <UlasanForm/>
+                    <UlasanForm user={user}/>
                 </div>
                 <div className="hidden lg:block lg:w-4/6 min-h-lvh overflow-y-auto">
                     <UlasanList/>

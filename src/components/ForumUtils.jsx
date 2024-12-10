@@ -36,11 +36,12 @@ function ForumUtils(props) {
 
             <div className="flex flex-col gap-y-8 border-[1px] border-gray-300 p-8 rounded-md shadow-md">
                 <button
-                    className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor py-2 px-12 rounded-md shadow-md"
+                    className={`transition-colors hover:bg-hoverPrimaryColor py-2 px-12 rounded-md shadow-md ${props.user ? "text-white bg-primaryColor" : "bg-hoverPrimaryColor text-gray-300"}`}
                     onClick={togglePopup}
+                    disabled={!props.user}
                 >
                     <h1 className="font-bold text-white text-xl">
-                        Mulai Diskusi
+                        {props.user ? "Mulai Diskusi" : "Login untuk memulai diskusi"}
                     </h1>
                 </button>
                 {isOpen && (
@@ -80,7 +81,8 @@ function ForumUtils(props) {
 
 ForumUtils.propTypes = {
     onSearchChange : PropTypes.string,
-    onOrderChange : PropTypes.string
+    onOrderChange : PropTypes.string,
+    user: PropTypes.object
 }
 
 export default ForumUtils;

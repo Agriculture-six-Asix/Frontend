@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import imgLogo from "/assets/logo-app.png";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -39,7 +41,7 @@ function Navbar() {
                 Katalog
               </Link>
             </li>
-            
+
             <li>
               <Link
                 className="mx-5 text-lg transition duration-200 ease-in text-black hover:text-primary-600"
@@ -60,12 +62,28 @@ function Navbar() {
           </ul>
         </div>
         <div className="w-[136px] text-end">
-          <Link
-            to="/login"
-            className="hidden md-2:inline-block py-2 px-5 border-[2px] border-black rounded-full"
-          >
-            Login
-          </Link>
+          {
+            user ? (
+              <Link
+                to="/profile"
+                className="hidden md-2:inline-block py-2 px-5 border-[2px] border-black rounded-full"
+              >
+                <img
+                  src={user.photo? user.photo : "https://via.placeholder.com/150"}
+                  alt="Photo Profile"
+                  className="rounded-full size-12"
+                />
+                <p className="text-lg ">{user.username}</p>
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="hidden md-2:inline-block py-2 px-5 border-[2px] border-black rounded-full"
+              >
+                Login
+              </Link>
+            )
+          }
           <button
             className="md-2:hidden text-white focus:outline-none border-[2px] border-black p-[4px] rounded-md"
             onClick={toggleSidebar}
@@ -89,9 +107,8 @@ function Navbar() {
 
         {/* Sidebar */}
         <div
-          className={`md-2:hidden shadow-xl fixed z-50 inset-y-0 left-0 w-64 bg-white text-black transform ${
-            isOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform duration-300 ease-in-out`}
+          className={`md-2:hidden shadow-xl fixed z-50 inset-y-0 left-0 w-64 bg-white text-black transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+            } transition-transform duration-300 ease-in-out`}
         >
           <div className="p-4 flex justify-between items-center">
             <img src={imgLogo} alt="" width="136px" />
@@ -141,10 +158,10 @@ function Navbar() {
               Forum
             </Link>
             <Link
-                className="text-lg transition duration-200 ease-in text-black hover:text-primary-600"
-                to={"/telusuri"}
-              >
-                Telusuri
+              className="text-lg transition duration-200 ease-in text-black hover:text-primary-600"
+              to={"/telusuri"}
+            >
+              Telusuri
             </Link>
             <Link
               to="/login"

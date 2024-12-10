@@ -1,4 +1,4 @@
-import UserNavbar from "../components/UserNavbar";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import User from "../data/dummy/user.json";
 import ProfileMenu from "../components/ProfileMenu";
@@ -6,7 +6,7 @@ import ProfileMenu from "../components/ProfileMenu";
 function Profile() {
     return (
         <>
-            <UserNavbar />
+            <Navbar />
             <section className="p-12 md:py-20 xl:px-20 md:px-40 animate-fade-in">
                 <div className="flex xl:flex-row flex-col gap-x-8">
                     <div className="w-full order-2 xl:order-1 xl:w-3/4 border-[1px] border-gray-300 rounded-xl p-8 shadow-md">

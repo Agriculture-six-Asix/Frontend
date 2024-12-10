@@ -5,11 +5,12 @@ import Diskusi from "../data/dummy/diskusi-list.json"
 import { Link, useSearchParams } from "react-router-dom"
 import MainDiskusi from "../components/MainDiskusi"
 import ForumUtils from "../components/ForumUtils"
-
+import { useAuth } from "../context/AuthContext"
 
 function Forum() {
     const [searchParams] = useSearchParams();
     const searchTag = searchParams.get("tag");
+    const { user } = useAuth();
     if (searchTag) {
         // Filter diskusi by tag
         console.log(searchTag.replace("+", " "));
@@ -45,6 +46,7 @@ function Forum() {
                                 onSearchChange={() => console.log("search change")}
                                 onOrderChange={() => console.log("order change")}
                                 onSubmit={() => console.log("submit")}
+                                user={user}
                             />
                         </div>
                     </div>
