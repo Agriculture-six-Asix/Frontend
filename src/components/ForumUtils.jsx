@@ -45,7 +45,7 @@ function ForumUtils(props) {
                     </h1>
                 </button>
                 {isOpen && (
-                    <PopUpDiskusi onClick={togglePopup} />
+                    <PopUpDiskusi onSubmit={props.onSubmit} onClick={togglePopup} />
                 )}
                 <hr className="border-[1px] border-gray-300" />
                 <p className="text-lg text-primaryColor">
@@ -73,15 +73,21 @@ function ForumUtils(props) {
                 <p className="text-lg text-primaryColor">
                     Tags
                 </p>
-                <TagsList />
+                <TagsList tags={props.tags}/>
             </div>
         </div>
     )
 };
 
 ForumUtils.propTypes = {
-    onSearchChange : PropTypes.string,
-    onOrderChange : PropTypes.string,
+    onSearchChange : PropTypes.func,
+    onOrderChange : PropTypes.func,
+    onSubmit : PropTypes.func,
+    tags: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        slug: PropTypes.string
+    })),
     user: PropTypes.object
 }
 

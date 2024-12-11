@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import Tags from "../data/dummy/tags.json";
+// import Tags from "../data/dummy/tags.json";
+import PropTypes from "prop-types";
 
-function TagsList() {
+function TagsList(props) {
     return (
         <div className="flex flex-wrap gap-2">
-            {Tags.map((value, index) => (
+            {props.tags && props.tags.map((value, index) => (
                 <Link 
                     to={{
                         pathname: "/forum",
@@ -19,5 +20,13 @@ function TagsList() {
         </div>
     )
 };
+
+TagsList.propTypes = {
+    tags: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        slug: PropTypes.string
+    }))
+}
 
 export default TagsList;

@@ -28,3 +28,8 @@ export function formatTimeDifference(createdAt) {
     const differenceInYears = Math.floor(differenceInMonths / 12);
     return `${differenceInYears} tahun yang lalu`;
 }
+
+export function formatTime (date) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString('id-ID', options);
+}

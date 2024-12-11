@@ -2,7 +2,7 @@ import StarRating from "./StarRating"
 import CustomerRatingStars from "./CustomerRating"
 import PropTypes from "prop-types"
 
-function UlasanForm({user}){
+function UlasanForm({user, avgRating, totalReviews}){
     return(
         <>    
             <section className="py-4 px-6 w-full">
@@ -10,9 +10,9 @@ function UlasanForm({user}){
                     <h1 className="text-2xl font-medium">Ulasan</h1>
                 </div>
                 <div className="flex items-center mt-2">
-                    <h3 className="text-xl font-medium mr-2">4.9</h3>
-                    <CustomerRatingStars rating={4}/>
-                    <h3 className="text-xl font-medium ml-2">32 Ulasan</h3>
+                    <h3 className="text-xl font-medium mr-2">{avgRating}</h3>
+                    <CustomerRatingStars rating={Math.floor(avgRating)}/>
+                    <h3 className="text-xl font-medium ml-2">{totalReviews} Ulasan</h3>
                 </div>
                 <form className="w-full flex flex-col items-end">
                     <label htmlFor="message" className="block mb-2 text-gray-900 text-xl font-medium self-start mt-6">Tambah Ulasan</label>
@@ -28,7 +28,9 @@ function UlasanForm({user}){
 }
 
 UlasanForm.propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    avgRating: PropTypes.number,
+    totalReviews: PropTypes.number
 }
 
 export default UlasanForm

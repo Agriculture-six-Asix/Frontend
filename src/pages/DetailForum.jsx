@@ -1,26 +1,41 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Diskusi from "../data/dummy/diskusi-list.json";
+// import Diskusi from "../data/dummy/diskusi-list.json";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import DetailDiskusi from "../components/DiskusiDetail";
-import Reply from "../data/dummy/diskusi-reply-list.json";
+// import Reply from "../data/dummy/diskusi-reply-list.json";
 import DiskusiReply from "../components/DiskusiReply";
+import { useAuth } from "../context/AuthContext";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function DetailForum() {
     const { parameter } = useParams();
+    const { user } = useAuth();
 
-    const detailDiskusi = Diskusi.filter((value) => value.slug === parameter);
+    const [diskusi, setDiskusi] = useState({});
+    const [replies, setReplies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    if (detailDiskusi.length === 0) {
-        return (
-            <div>
-                <h1>404 Not Found</h1>
-            </div>
-        );
-    }
+    useEffect(() => {
+        async function fetchDiskusiAndReplies() {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/forum/${parameter}`);
+                setDiskusi(response.data.data.forum);
 
-    const reply = Reply.filter((value) => value.diskusi_id === detailDiskusi[0].id);
+                const responseReplies = await axios.get(`${import.meta.env.VITE_APP_API_URL}/forum/${parameter}/replies`);
+                setReplies(responseReplies.data.data.replies);
+            } catch (error) {
+                // TODO: handle error
+                console.error(error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchDiskusiAndReplies();
+    }, [parameter]);
 
     return (
         <>
@@ -45,49 +60,67 @@ function DetailForum() {
                     Forum Diskusi
                 </Link>
                 <DetailDiskusi
-                    photo={detailDiskusi[0].photo}
-                    nama={detailDiskusi[0].nama}
-                    created_at={detailDiskusi[0].created_at}
-                    judul={detailDiskusi[0].judul}
-                    deskripsi={detailDiskusi[0].deskripsi}
-                    reply_count={detailDiskusi[0].reply_count}
-                    tags={detailDiskusi[0].tags}
+                    photo={diskusi.photo}
+                    nama={diskusi.fullname}
+                    created_at={diskusi.created_at}
+                    judul={diskusi.title}
+                    deskripsi={diskusi.content}
+                    reply_count={diskusi.reply_count}
+                    tags={diskusi.tags}
                 />
-                <div className="mt-4 mb-2 p-4 rounded-md shadow-md border-[1px] border-gray-300">
-                    <form id="replyDiskusi" action="">
-                        <textarea
-                            rows={5}
-                            className="w-full"
-                            name="reply"
-                            id="replyDiskusi"
-                            placeholder="Tulis Komentar Anda..."
-                            style={{ resize: "none" }}
-                        >
-                        </textarea>
-                    </form>
-                </div>
-                <div className="w-full flex justify-end">
-                    <button 
-                        form="replyDiskusi"
-                        className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor text-white rounded-md px-4 py-2 mt-2"
-                        type="submit"
-                    >
-                        Kirim Pesan
-                    </button>
-                </div>
+                {
+                    user && (
+                        <>
+                            <div className="mt-4 mb-2 p-4 rounded-md shadow-md border-[1px] border-gray-300">
+                                <form id="replyDiskusi" action="">
+                                    <textarea
+                                        rows={5}
+                                        className="w-full"
+                                        name="reply"
+                                        id="replyDiskusi"
+                                        placeholder="Tulis Komentar Anda..."
+                                        style={{ resize: "none" }}
+                                    >
+                                    </textarea>
+                                </form>
+                            </div>
+                            <div className="w-full flex justify-end">
+                                <button
+                                    form="replyDiskusi"
+                                    className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor text-white rounded-md px-4 py-2 mt-2"
+                                    type="submit"
+                                >
+                                    Kirim Pesan
+                                </button>
+                            </div>
+                        </>
+                    )
+                }
+                <div className="">
                 <h3 className="text-xl text-primaryColor my-4">
                     Komentar
                 </h3>
-                <div className="flex flex-col gap-y-4">
-                    {reply.map((value, index) => (
-                        <DiskusiReply
-                            key={index}
-                            photo={value.photo}
-                            name={value.name}
-                            created_at={value.created_at}
-                            comment={value.comment}
-                        />
-                    ))}
+                {
+                    !isLoading && (
+                        replies.length === 0 ? (
+                            <h4 className="text-center text-lg text-gray-300">
+                                Belum ada komentar
+                            </h4>
+                        ) : (
+                            <div className="flex flex-col gap-y-4">
+                                {replies.map((value) => (
+                                    <DiskusiReply
+                                        key={value.id}
+                                        photo={value.photo}
+                                        name={value.fullname}
+                                        created_at={value.created_at}
+                                        comment={value.content}
+                                    />
+                                ))}
+                            </div>
+                        )
+                    )
+                }
                 </div>
             </section>
             <Footer />

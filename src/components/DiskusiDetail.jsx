@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import { formatTimeDifference } from "../utils/formatTime";
+import defaultPic from "/assets/users/default-profile.png"
 
 function DetailDiskusi(props) {
     return (
         <div className="rounded-md shadow-md p-8 border-[1px] border-gray-300">
             <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-x-2">
-                    <img className="size-8 rounded-full" src={props.photo} alt="Photo" />
+                    <img src={props.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.photo}` : defaultPic} className={`size-8 rounded-full border border-gray-300 ${!props.photo ? 'p-2' : ''}`} alt="Photo" />
                     <p>{props.nama}</p>
                 </div>
                 <p>{formatTimeDifference(props.created_at)}</p>
@@ -17,7 +18,7 @@ function DetailDiskusi(props) {
                     <p className="text-sm">{props.deskripsi}</p>
                 </div>
                 <div className="flex flex-grow gap-x-2 mb-2">
-                    {props.tags.map((value, index) => (
+                    {props.tags && props.tags.map((value, index) => (
                         <div key={index} className="text-sm border-[1px] border-gray-300 rounded-md p-2">
                             {value.name}
                         </div>
@@ -37,7 +38,11 @@ DetailDiskusi.propTypes = {
     created_at : PropTypes.string,
     judul : PropTypes.string,
     deskripsi : PropTypes.string,
-    tags : PropTypes.string,
+    tags : PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        slug: PropTypes.string,
+        name: PropTypes.string
+    })),
     reply_count : PropTypes.string,
     photo : PropTypes.string
 }

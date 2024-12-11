@@ -17,7 +17,6 @@ function DetailKatalog(){
 
   useEffect(() => {
     async function getTanamanData() {
-        console.log(parameter);
         try {
             const reponse = await axios.get(`${import.meta.env.VITE_APP_API_URL}/bibit/${parameter}`);
             setTanaman(reponse.data.data.bibit);

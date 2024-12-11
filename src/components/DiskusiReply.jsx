@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { formatTimeDifference } from '../utils/formatTime';
+import defaultPic from '/assets/users/default-profile.png';
 
 function DiskusiReply(props) {
     return (
@@ -7,7 +8,7 @@ function DiskusiReply(props) {
             <div className="rounded-md shadow-md p-8 border-[1px] border-gray-300">
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-x-2">
-                        <img className="size-8 rounded-full" src={props.photo} alt="Photo" />
+                        <img src={props.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.photo}` : defaultPic} className={`size-8 rounded-full border border-gray-300 ${!props.photo ? 'p-2' : ''}`} alt="Photo" />
                         <p>{props.name}</p>
                     </div>
                     <p>{formatTimeDifference(props.created_at)}</p>
