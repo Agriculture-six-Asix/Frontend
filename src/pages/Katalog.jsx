@@ -8,7 +8,7 @@ import FadeIn from "../Animation/ScrollAnimation/FadeIn"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-function Katalog(){
+function Katalog() {
     const [dataKatalog, setDataKatalog] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -17,10 +17,10 @@ function Katalog(){
             try {
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/bibit/`);
                 setDataKatalog(response.data.data.bibits);
-            }catch(error){
+            } catch (error) {
                 console.error(error);
                 // TODO: handle error
-            }finally{
+            } finally {
                 setIsLoading(false);
             }
         }
@@ -31,35 +31,45 @@ function Katalog(){
     const heroTitle = "Katalog Koleksi Bibit Kebun Bibit Wonorejo"
     const heroSubtitle = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quas? Fugit neque debitis accusantium nihil deserunt error nisi et."
 
-    return(
+    return (
         <>
-            <Navbar/>
+            <Navbar />
             <section className="pb-4 animate-fade-in">
-                <FirstHero imageUrl={heroImg} title={heroTitle} subTitle={heroSubtitle}/> 
+                <FirstHero imageUrl={heroImg} title={heroTitle} subTitle={heroSubtitle} />
                 <FadeIn>
-                    <div className="flex flex-col items-center mt-[72px]">    
-                        <h1 className="text-primary-600 font-bold text-2xl md:text-3xl lg:text-4xl text-center text-primaryColor mb-[64px]">Temukan ragam bibit unggul untuk <br />
-                        mempercantik lingkungan Anda</h1>  
+                    <div className="flex flex-col items-center mt-[72px]">
+                        <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl text-center text-primaryColor mb-[64px]">Temukan ragam bibit unggul untuk <br />
+                            mempercantik lingkungan Anda</h1>
                     </div>
                 </FadeIn>
                 <FadeIn>
                     <div className="flex justify-center items-center">
-                        <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
-                            {/* TODO: implement loading skeleton */}
-                            {dataKatalog.map((value, index) => (
-                                <CardKatalog
-                                    key={index}
-                                    parameter={value.id}
-                                    namaAsli={value.title}
-                                    namaLatin={value.latin}
-                                    image={value.image}
-                                />
-                            ))}
-                        </div>
+                        {
+                            !isLoading && (
+                                dataKatalog.length > 0 ? (
+                                    <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+                                        {/* TODO: implement loading skeleton */}
+                                        {dataKatalog.map((value, index) => (
+                                            <CardKatalog
+                                                key={index}
+                                                parameter={value.id}
+                                                namaAsli={value.title}
+                                                namaLatin={value.latin}
+                                                image={value.image}
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <h4 className="text-center text-lg text-gray-300 col-span-8 xl:col-span-6">
+                                        Tidak ada katalog tanaman
+                                    </h4>
+                                )
+                            )
+                        }
                     </div>
                 </FadeIn>
             </section>
-            <Footer/>        
+            <Footer />
         </>
     )
 }

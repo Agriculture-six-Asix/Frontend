@@ -40,7 +40,7 @@ function DetailForum() {
     return (
         <>
             <Navbar />
-            <section className="mb-12 px-16 animate-fade-in">
+            <section className="min-h-screen mb-12 px-16 animate-fade-in">
                 <Link to={"/forum"} className="
                         text-primaryColor
                         text-2xl
@@ -59,69 +59,81 @@ function DetailForum() {
                     </svg>
                     Forum Diskusi
                 </Link>
-                <DetailDiskusi
-                    photo={diskusi.photo}
-                    nama={diskusi.fullname}
-                    created_at={diskusi.created_at}
-                    judul={diskusi.title}
-                    deskripsi={diskusi.content}
-                    reply_count={diskusi.reply_count}
-                    tags={diskusi.tags}
-                />
-                {
-                    user && (
-                        <>
-                            <div className="mt-4 mb-2 p-4 rounded-md shadow-md border-[1px] border-gray-300">
-                                <form id="replyDiskusi" action="">
-                                    <textarea
-                                        rows={5}
-                                        className="w-full"
-                                        name="reply"
-                                        id="replyDiskusi"
-                                        placeholder="Tulis Komentar Anda..."
-                                        style={{ resize: "none" }}
-                                    >
-                                    </textarea>
-                                </form>
-                            </div>
-                            <div className="w-full flex justify-end">
-                                <button
-                                    form="replyDiskusi"
-                                    className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor text-white rounded-md px-4 py-2 mt-2"
-                                    type="submit"
-                                >
-                                    Kirim Pesan
-                                </button>
-                            </div>
-                        </>
-                    )
-                }
-                <div className="">
-                <h3 className="text-xl text-primaryColor my-4">
-                    Komentar
-                </h3>
                 {
                     !isLoading && (
-                        replies.length === 0 ? (
-                            <h4 className="text-center text-lg text-gray-300">
-                                Belum ada komentar
-                            </h4>
+                        Object.keys(diskusi).length > 0 ? (
+                            <>
+                                <DetailDiskusi
+                                    photo={diskusi.photo}
+                                    nama={diskusi.fullname}
+                                    created_at={diskusi.created_at}
+                                    judul={diskusi.title}
+                                    deskripsi={diskusi.content}
+                                    reply_count={diskusi.reply_count}
+                                    tags={diskusi.tags}
+                                />
+                                {
+                                    user && (
+                                        <>
+                                            <div className="mt-4 mb-2 p-4 rounded-md shadow-md border-[1px] border-gray-300">
+                                                <form id="replyDiskusi" action="">
+                                                    <textarea
+                                                        rows={5}
+                                                        className="w-full"
+                                                        name="reply"
+                                                        id="replyDiskusi"
+                                                        placeholder="Tulis Komentar Anda..."
+                                                        style={{ resize: "none" }}
+                                                    >
+                                                    </textarea>
+                                                </form>
+                                            </div>
+                                            <div className="w-full flex justify-end">
+                                                <button
+                                                    form="replyDiskusi"
+                                                    className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor text-white rounded-md px-4 py-2 mt-2"
+                                                    type="submit"
+                                                >
+                                                    Kirim Pesan
+                                                </button>
+                                            </div>
+                                        </>
+                                    )
+                                }
+                                <div className="">
+                                    <h3 className="text-xl text-primaryColor my-4">
+                                        Komentar
+                                    </h3>
+                                    {
+                                        !isLoading && (
+                                            replies.length === 0 ? (
+                                                <h4 className="text-center text-lg text-gray-300">
+                                                    Belum ada komentar
+                                                </h4>
+                                            ) : (
+                                                <div className="flex flex-col gap-y-4">
+                                                    {replies.map((value) => (
+                                                        <DiskusiReply
+                                                            key={value.id}
+                                                            photo={value.photo}
+                                                            name={value.fullname}
+                                                            created_at={value.created_at}
+                                                            comment={value.content}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            )
+                                        )
+                                    }
+                                </div>
+                            </>
                         ) : (
-                            <div className="flex flex-col gap-y-4">
-                                {replies.map((value) => (
-                                    <DiskusiReply
-                                        key={value.id}
-                                        photo={value.photo}
-                                        name={value.fullname}
-                                        created_at={value.created_at}
-                                        comment={value.content}
-                                    />
-                                ))}
-                            </div>
+                            <h4 className="my-16 text-center text-lg text-gray-300 col-span-8 xl:col-span-6">
+                                Diskusi tidak ditemukan
+                            </h4>
                         )
                     )
                 }
-                </div>
             </section>
             <Footer />
         </>

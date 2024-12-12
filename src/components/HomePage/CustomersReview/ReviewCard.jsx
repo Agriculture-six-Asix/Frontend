@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 function ReviewCard(props){
     return (
         <>
-            <div className="w-full md:w-1/2 mt-4 md:mt-0 flex flex-col justify-center items-center text-center p-6 border-[1px] border-gray-300 md:mx-2">
+            <div className="w-full mt-4 md:mt-0 flex flex-col justify-center items-center text-center p-6 border-[1px] border-gray-300 md:mx-2">
                 <p className="text-lg">
                     {props.review}
                 </p>

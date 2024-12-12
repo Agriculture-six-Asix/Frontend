@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import RootLayout from "./layouts/RootLayout"
-import AuthLayout from "./layouts/AuthLayout"
-import ForgotPassLayout from "./layouts/ForgotPassLayout"
+// import AuthLayout from "./layouts/AuthLayout"
+// import ForgotPassLayout from "./layouts/ForgotPassLayout"
 import ImageLogo from "/assets/logo-app.png"
-import ProfileLayout from "./layouts/ProfileLayout"
+// import ProfileLayout from "./layouts/ProfileLayout"
+// import WildcardLayout from "./layouts/WildcardLayout"
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,9 +26,10 @@ function App() {
       ) : (
         <div className="opacity-0 animate-fade-in">
           <RootLayout />
-          <AuthLayout />
+          {/* <AuthLayout />
           <ForgotPassLayout />
           <ProfileLayout />
+          <WildcardLayout /> */}
         </div>
       )}
     </div>

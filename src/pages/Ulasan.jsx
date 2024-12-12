@@ -65,7 +65,7 @@ function Ulasan() {
                     <UlasanForm user={user} avgRating={avgRating} totalReviews={totalReviews} />
                 </div>
                 <div className="hidden lg:block lg:w-4/6 min-h-lvh overflow-y-auto">
-                    <UlasanList />
+                    <UlasanList isLoading={isLoading} reviews={reviews} />
                 </div>
                 <div>
                     {activeSection === "ulasan-form" &&
@@ -75,7 +75,7 @@ function Ulasan() {
                     }
                     {activeSection === "ulasan-list" &&
                         <div className="w-full lg:hidden h-lvh overflow-y-auto">
-                            <UlasanList onClick={() => togglePopup("ulasan-list")} />
+                            <UlasanList isLoading={isLoading} reviews={reviews} onClick={() => togglePopup("ulasan-list")} />
                         </div>
                     }
                 </div>
