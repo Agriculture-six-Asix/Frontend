@@ -49,9 +49,9 @@ function ProtectedLayout() {
 }
 
 function AuthorizedLayout() {
-  const user = useAuth()
+  const { user } = useAuth()
 
-  return user ? <Outlet /> : <Navigate to={"/"} />
+  return !user ? <Outlet /> : <Navigate to={"/"} />
 }
 
 export default RootLayout;

@@ -5,6 +5,7 @@ import RootLayout from "./layouts/RootLayout"
 import ImageLogo from "/assets/logo-app.png"
 // import ProfileLayout from "./layouts/ProfileLayout"
 // import WildcardLayout from "./layouts/WildcardLayout"
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +26,26 @@ function App() {
         </div>
       ) : (
         <div className="opacity-0 animate-fade-in">
+          <Toaster 
+            toastOptions={
+              {
+                position: "bottom-center",
+                className: "",
+                success: {
+                  style: {
+                    background: "#74BA10",
+                    color: "#ffffff",
+                  },
+                },
+                error: {
+                  style: {
+                    background: "#b91c1c",
+                    color: "#ffffff",
+                  },
+                }
+              }
+            }
+          />
           <RootLayout />
           {/* <AuthLayout />
           <ForgotPassLayout />

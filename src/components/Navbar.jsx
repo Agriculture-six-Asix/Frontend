@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import imgLogo from "/assets/logo-app.png";
+import defaultPic from "/assets/users/default-profile.png";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
@@ -66,12 +67,12 @@ function Navbar() {
             user ? (
               <Link
                 to="/profile"
-                className="hidden md-2:inline-block py-2 px-5 border-[2px] border-black rounded-full"
+                className="hidden md-2:flex md-2:items-center gap-x-4"
               >
                 <img
-                  src={user.photo? user.photo : "https://via.placeholder.com/150"}
+                  src={user.photo ? user.photo : defaultPic}
                   alt="Photo Profile"
-                  className="rounded-full size-12"
+                  className={`rounded-full size-12 p-2 border border-gray-300`}
                 />
                 <p className="text-lg ">{user.username}</p>
               </Link>
@@ -163,12 +164,23 @@ function Navbar() {
             >
               Telusuri
             </Link>
-            <Link
-              to="/login"
-              className="my-auto text-center inline-block py-2 px-5 border-[2px] border-black rounded-full"
-            >
-              Login
-            </Link>
+            {
+              user ? (
+                <Link
+                  to="/profile"
+                  className="my-auto text-center inline-block py-2 px-5 border-[2px] border-black rounded-full"
+                >
+                  Profile Anda
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  className="my-auto text-center inline-block py-2 px-5 border-[2px] border-black rounded-full"
+                >
+                  Login
+                </Link>
+              )
+            }
           </div>
         </div>
       </nav>

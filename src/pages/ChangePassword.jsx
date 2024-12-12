@@ -1,13 +1,14 @@
-import UserNavbar from "../components/UserNavbar";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProfileMenu from "../components/ProfileMenu";
-import User from "../data/dummy/user.json";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 function ChangePassword() {
     const [isVisible1, setIsVisible1] = useState(false);
     const [isVisible2, setIsVisible2] = useState(false);
     const [isVisible3, setIsVisible3] = useState(false);
+    const { user } = useAuth();
 
     const handleVisible = (num) => {
         switch(num){
@@ -24,7 +25,7 @@ function ChangePassword() {
 
     return (
         <>
-            <UserNavbar />
+            <Navbar />
             <section className="p-12 md:py-20 xl:px-20 md:px-40 animate-fade-in">
                 <div className="flex xl:flex-row flex-col gap-x-8">
                     <div className="w-full order-2 xl:order-1 xl:w-3/4 border-[1px] border-gray-300 rounded-xl p-12 shadow-md">
@@ -156,7 +157,7 @@ function ChangePassword() {
                         </div>
                     </div>
                     <div className="w-full order-1 mb-8 xl:order-2 xl:mb-0 xl:w-1/4">
-                        <ProfileMenu User={User} />
+                        <ProfileMenu user={user} fullName={`${user.fname + " " + user.lname}`} />
                     </div>
                 </div>
             </section>
