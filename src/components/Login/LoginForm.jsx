@@ -19,6 +19,7 @@ function LoginForm() {
                 password: data.password
             })
             localStorage.setItem("token", response.data.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.data.user));
             setUser({
                 ...response.data.data.user,
                 token: response.data.data.token

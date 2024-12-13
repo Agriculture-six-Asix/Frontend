@@ -27,6 +27,7 @@ function ProfileMenu(props) {
 
             setUser(null);
             localStorage.removeItem("token");
+            localStorage.removeItem("user");
             toast.success("Logout berhasil");
             navigate("/");
         } catch (error) {

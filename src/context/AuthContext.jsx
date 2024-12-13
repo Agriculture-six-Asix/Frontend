@@ -16,6 +16,7 @@ export function AuthProvider({ children }) {
             if (checkTokenExpiry(token)) {
                 setUser(null);
                 localStorage.removeItem("token");
+                localStorage.removeItem("user");
                 toast.error("Token anda sudah tidak valid, mohon login kembali");
             } else {
                 setUser({
