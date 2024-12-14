@@ -9,6 +9,7 @@ import DiskusiReply from "../components/DiskusiReply";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ForumReplyForm from "../components/Forum/ForumReplyForm";
 
 function DetailForum() {
     const { parameter } = useParams();
@@ -36,6 +37,15 @@ function DetailForum() {
 
         fetchDiskusiAndReplies();
     }, [parameter]);
+
+    const fetchNewReply = async () => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/forum/${parameter}/replies`);
+            setReplies(response.data.data.replies);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <>
@@ -74,30 +84,13 @@ function DetailForum() {
                                 />
                                 {
                                     user && (
-                                        <>
-                                            <div className="mt-4 mb-2 p-4 rounded-md shadow-md border-[1px] border-gray-300">
-                                                <form id="replyDiskusi" action="">
-                                                    <textarea
-                                                        rows={5}
-                                                        className="w-full"
-                                                        name="reply"
-                                                        id="replyDiskusi"
-                                                        placeholder="Tulis Komentar Anda..."
-                                                        style={{ resize: "none" }}
-                                                    >
-                                                    </textarea>
-                                                </form>
-                                            </div>
-                                            <div className="w-full flex justify-end">
-                                                <button
-                                                    form="replyDiskusi"
-                                                    className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor text-white rounded-md px-4 py-2 mt-2"
-                                                    type="submit"
-                                                >
-                                                    Kirim Pesan
-                                                </button>
-                                            </div>
-                                        </>
+                                        <ForumReplyForm
+                                            isLoading={isLoading}
+                                            setIsLoading={setIsLoading}
+                                            forumId={Number(parameter)}
+                                            user={user}
+                                            onReplyAdded={fetchNewReply}
+                                        />
                                     )
                                 }
                                 <div className="">

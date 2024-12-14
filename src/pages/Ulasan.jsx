@@ -39,7 +39,7 @@ function Ulasan() {
             if (reviews.length > 0) {
                 const totalRating = reviews.reduce((acc, curr) => acc + curr.score, 0);
                 const avgRating = totalRating / reviews.length;
-                setAvgRating(avgRating);
+                setAvgRating(Number(avgRating).toPrecision(2));
             } else {
                 setAvgRating(0);
             }
@@ -53,6 +53,18 @@ function Ulasan() {
         getReviewCount();
     }, [reviews])
 
+    const handleReviewSubmit = async () => {
+        setIsLoading(true);
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/rating`);
+            setReviews(response.data.data.ratings);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <>
             <Navbar />
@@ -62,7 +74,7 @@ function Ulasan() {
             </ul>
             <section className="flex h-lvh bg-white animate-fade-in">
                 <div className="hidden lg:block lg:w-2/6 min-h-lvh">
-                    <UlasanForm user={user} avgRating={avgRating} totalReviews={totalReviews} />
+                    <UlasanForm user={user} avgRating={avgRating} totalReviews={totalReviews} handleReviewSubmit={handleReviewSubmit}/>
                 </div>
                 <div className="hidden lg:block lg:w-4/6 min-h-lvh overflow-y-auto">
                     <UlasanList isLoading={isLoading} reviews={reviews} />
