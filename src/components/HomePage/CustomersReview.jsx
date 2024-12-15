@@ -12,8 +12,10 @@ function CustomerReviews() {
         async function fetchTop2Reviews() {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/rating`);
-                // get only the first 2 reviews
-                setReviews(response.data.data.ratings.slice(0, 2));
+                // get only the first 2 reviews with rating of 4 or more
+                setReviews(response.data.data.ratings.filter(
+                    (item) => item.score >= 4
+                ).slice(0, 2));
             } catch (error) {
                 // TODO: handle error
                 console.error(error);
@@ -32,7 +34,7 @@ function CustomerReviews() {
                 {
                     !isLoading && (
                         reviews.length > 0 ? (
-                            <div className="flex flex-col items-center md:flex-row md:justify-between w-full">
+                            <div className="flex flex-col items-center md:flex-row md:justify-between w-full h-full">
                                 {/* TODO: implement loading */}
                                 {reviews.map((item, index) => (
                                     <ReviewCard className="bg-slate-800" review={item.content} userImg={item.photo} name={item.fullname} key={index} />

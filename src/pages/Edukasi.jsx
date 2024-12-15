@@ -11,8 +11,6 @@ import SlideInUp from "../Animation/ScrollAnimation/SlideInUp";
 
 function Edukasi() {
   const titleHero = "Belajar Menanam dengan Mudah dan Terarah";
-  const heroSubtitle =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quas? Fugit neque debitis accusantium nihil deserunt error nisi et.";
 
   return (
     <>
@@ -21,7 +19,6 @@ function Edukasi() {
         <FirstHero
           imageUrl={heroImg}
           title={titleHero}
-          subTitle={heroSubtitle}
         />
         <FadeIn>
           <h1 className="my-20 text-4xl font-bold text-center text-primaryColor">

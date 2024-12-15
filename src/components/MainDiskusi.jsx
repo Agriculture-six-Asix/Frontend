@@ -7,7 +7,7 @@ function MainDiskusi(props) {
         <div className="rounded-md shadow-md p-8 border-[1px] border-gray-300 transition-colors hover:bg-gray-100">
             <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-x-2">
-                    <img src={props.photo ? `${import.meta.env.VITE_API_APP_IMAGE_URL}/user/${props.photo}` : defaultPic} className={`size-8 rounded-full border border-gray-300 ${!props.photo ? 'p-2' : ''}`} alt="Photo" />
+                    <img src={props.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.photo}` : defaultPic} className={`size-8 rounded-full border border-gray-300 ${!props.photo ? 'p-2' : ''}`} alt="Photo" />
                     <p>{props.nama}</p>
                 </div>
                 <p>{formatTimeDifference(props.created_at)}</p>
@@ -33,7 +33,7 @@ MainDiskusi.propTypes = {
     created_at : PropTypes.string,
     judul : PropTypes.string,
     deskripsi : PropTypes.string,
-    reply_count : PropTypes.string,
+    reply_count : PropTypes.number,
 }
 
 export default MainDiskusi;

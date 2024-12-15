@@ -43,7 +43,7 @@ DetailDiskusi.propTypes = {
         slug: PropTypes.string,
         name: PropTypes.string
     })),
-    reply_count : PropTypes.string,
+    reply_count : PropTypes.number,
     photo : PropTypes.string
 }
 

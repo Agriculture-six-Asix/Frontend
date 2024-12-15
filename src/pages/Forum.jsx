@@ -8,6 +8,7 @@ import ForumUtils from "../components/ForumUtils"
 import { useAuth } from "../context/AuthContext"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 function Forum() {
     const [searchParams] = useSearchParams();
@@ -18,6 +19,7 @@ function Forum() {
     const [filteredForum, setFilteredForum] = useState([]);
     const [tags, setTags] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         async function fetchForumAndTags() {
@@ -76,10 +78,46 @@ function Forum() {
         }
     }, [searchTag, forum]);
 
+    const handleSubmit = async (data) => {
+        setIsLoading(true);
+        try {
+            await axios.post(`${import.meta.env.VITE_APP_API_URL}/forum/create`, {
+                title: data.judul,
+                content: data.deskripsi,
+                tags: data.tags
+            }, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
+            toast.success("Diskusi berhasil dikirim");
+            setIsOpen(false);
+            handleDiskusiSubmit();
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data.message || "Terjadi kesalahan saat mengirim diskusi");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const handleDiskusiSubmit = async () => {
+        setIsLoading(true);
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/forum`);
+            setForum(response.data.data.forums);
+            setFilteredForum(response.data.data.forums);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <>
             <Navbar />
-            <section className="mb-12 md:px-16 px-4 animate-fade-in">
+            <section className="mb-12 md:px-16 px-4 animate-fade-in min-h-screen">
                 <FadeIn>
                     <h1 className="my-12 text-4xl font-bold text-primaryColor">
                         Forum Diskusi
@@ -116,9 +154,13 @@ function Forum() {
                                 // placeholder for onSearchChange and onOrderChange 
                                 onSearchChange={(e) => handleChangeSearch(e)}
                                 onOrderChange={(e) => handleOrderChange(e)}
-                                onSubmit={() => console.log("submit")}
+                                onSubmit={handleSubmit}
                                 tags={tags}
                                 user={user}
+                                isLoading={isLoading}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                searchTag={searchTag}
                             />
                         </div>
                     </div>

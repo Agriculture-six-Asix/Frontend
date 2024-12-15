@@ -7,6 +7,7 @@ import heroImg from "/assets/heroImg/detail-heroImg.png"
 // import detailTanaman from "../data/dummy/detailTanaman.json"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import SecondHero from "../components/SecondHero";
 
 function DetailKatalog() {
     const { parameter } = useParams();
@@ -35,7 +36,7 @@ function DetailKatalog() {
     return (
         <>
             <Navbar />
-            <FirstHero imageUrl={heroImg} title={heroTitle} subTitle={heroSubtitle} />
+            <SecondHero imageUrl={heroImg} title={heroTitle} />
             {
                 !isLoading && (
                     Object.keys(tanaman).length > 0 ? (

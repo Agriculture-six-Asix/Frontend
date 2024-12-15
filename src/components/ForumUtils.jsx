@@ -1,13 +1,11 @@
-import { useState } from "react";
 import TagsList from "./TagsList"
 import PopUpDiskusi from "./PopUpDiskusi";
 import PropTypes from "prop-types";
 
 function ForumUtils(props) {
-    const [isOpen, setIsOpen] = useState(false);
 
     const togglePopup = () => {
-        setIsOpen(!isOpen);
+        props.setIsOpen(!props.isOpen);
     }
 
     return (
@@ -44,8 +42,13 @@ function ForumUtils(props) {
                         {props.user ? "Mulai Diskusi" : "Login untuk memulai diskusi"}
                     </h1>
                 </button>
-                {isOpen && (
-                    <PopUpDiskusi onSubmit={props.onSubmit} onClick={togglePopup} />
+                {props.isOpen && (
+                    <PopUpDiskusi
+                        onSubmit={props.onSubmit}
+                        onClick={togglePopup}
+                        tags={props.tags}
+                        isLoading={props.isLoading}
+                    />
                 )}
                 <hr className="border-[1px] border-gray-300" />
                 <p className="text-lg text-primaryColor">
@@ -73,22 +76,29 @@ function ForumUtils(props) {
                 <p className="text-lg text-primaryColor">
                     Tags
                 </p>
-                <TagsList tags={props.tags}/>
+                <TagsList
+                    tags={props.tags}
+                    searchTag={props.searchTag}
+                />
             </div>
         </div>
     )
 };
 
 ForumUtils.propTypes = {
-    onSearchChange : PropTypes.func,
-    onOrderChange : PropTypes.func,
-    onSubmit : PropTypes.func,
+    onSearchChange: PropTypes.func,
+    onOrderChange: PropTypes.func,
+    onSubmit: PropTypes.func,
     tags: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
         slug: PropTypes.string
     })),
-    user: PropTypes.object
+    user: PropTypes.object,
+    isOpen: PropTypes.bool,
+    setIsOpen: PropTypes.func,
+    isLoading: PropTypes.bool,
+    searchTag: PropTypes.string
 }
 
 export default ForumUtils;

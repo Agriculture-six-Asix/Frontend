@@ -29,13 +29,13 @@ function Katalog() {
     }, [])
 
     const heroTitle = "Katalog Koleksi Bibit Kebun Bibit Wonorejo"
-    const heroSubtitle = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quas? Fugit neque debitis accusantium nihil deserunt error nisi et."
+    // const heroSubtitle = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quas? Fugit neque debitis accusantium nihil deserunt error nisi et."
 
     return (
         <>
             <Navbar />
             <section className="pb-4 animate-fade-in">
-                <FirstHero imageUrl={heroImg} title={heroTitle} subTitle={heroSubtitle} />
+                <FirstHero imageUrl={heroImg} title={heroTitle} />
                 <FadeIn>
                     <div className="flex flex-col items-center mt-[72px]">
                         <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl text-center text-primaryColor mb-[64px]">Temukan ragam bibit unggul untuk <br />
@@ -60,7 +60,7 @@ function Katalog() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <h4 className="text-center text-lg text-gray-300 col-span-8 xl:col-span-6">
+                                    <h4 className="text-center text-lg text-gray-300 col-span-8 xl:col-span-6 mb-[72px]">
                                         Tidak ada katalog tanaman
                                     </h4>
                                 )

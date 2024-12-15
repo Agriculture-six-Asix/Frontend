@@ -29,7 +29,7 @@ function App() {
           <Toaster 
             toastOptions={
               {
-                position: "bottom-center",
+                position: "top-center",
                 className: "",
                 success: {
                   style: {

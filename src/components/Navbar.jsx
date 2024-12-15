@@ -62,7 +62,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="w-[136px] text-end">
+        <div className="w text-end">
           {
             user ? (
               <Link
@@ -70,11 +70,11 @@ function Navbar() {
                 className="hidden md-2:flex md-2:items-center gap-x-4"
               >
                 <img
-                  src={user.photo ? user.photo : defaultPic}
+                  src={user.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${user.photo}` : defaultPic}
                   alt="Photo Profile"
-                  className={`rounded-full size-12 p-2 border border-gray-300`}
+                  className={`rounded-full size-12 border border-gray-300 ${user.photo ? '' : 'p-2'}`}
                 />
-                <p className="text-lg ">{user.username}</p>
+                <p className="text-lg">{user.username}</p>
               </Link>
             ) : (
               <Link
