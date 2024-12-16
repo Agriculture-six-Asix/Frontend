@@ -9,7 +9,7 @@ function CardDetail({ judul, namaLatin, penjelasan, gambar }){
             <h1 className="block md-2:hidden align-start text-primary-600 text-[40px] font-bold font-poppins mb-2">
             {judul}
             </h1>
-            <img src={gambar} alt="" className="xl:w-full h-full rounded-lg shadow-lg" />
+            <img src={`${import.meta.env.VITE_APP_API_IMAGE_URL}/bibit/${gambar}`} alt={gambar} className="xl:w-full h-full rounded-lg shadow-lg" />
           </div>
           <div className="w-full mt-4 xl:mt-0 xl:w-7/12 flex flex-col px-0 md-2:px-4 justify-center">
             <h1 className="hidden md-2:block text-primary-600 text-[40px] font-bold font-poppins">

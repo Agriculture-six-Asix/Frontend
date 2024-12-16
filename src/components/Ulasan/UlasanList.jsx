@@ -1,16 +1,40 @@
-import UlasanCard from "../../components/Ulasan/UlasanCard"
-import dataUlasan from "../../data/dummy/ulasan-list.json"
+import UlasanCard from "../../components/Ulasan/UlasanCard";
+import PropTypes from "prop-types";
 
-function UlasanList(){
-    return(
+function UlasanList(props) {
+
+    return (
         <>
-            <div className="py-4 px-6 border-l-[2px] w-full overflow-y-auto space-y-6 p-4">
-                {dataUlasan.map((item, index) => (
-                    <UlasanCard rating={item.rate} image={item.image} username={item.username} review={item.review} date={item.date} key={index}/>
-                ))}
-            </div> 
+            {
+                !props.isLoading && (
+                    props.reviews.length > 0 ? (
+                        <div className="py-4 px-6 border-l-[2px] w-full overflow-y-auto space-y-6 p-4">
+                            {/* TODO: implement loading */}
+                            {props.reviews.map((item) => (
+                                <UlasanCard rating={item.score} image={item.photo} username={item.fullname} review={item.content} date={item.created_at} key={item.id} />
+                            ))}
+                        </div>
+                    ) : (
+                        <h4 className="my-16 text-center text-lg text-gray-300 col-span-8 xl:col-span-6">
+                            Tidak ada ulasan
+                        </h4>
+                    )
+                )
+            }
         </>
     )
+}
+
+UlasanList.propTypes = {
+    isLoading: PropTypes.bool,
+    reviews: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        score: PropTypes.number,
+        photo: PropTypes.string,
+        fullname: PropTypes.string,
+        content: PropTypes.string,
+        created_at: PropTypes.string
+    }))
 }
 
 export default UlasanList

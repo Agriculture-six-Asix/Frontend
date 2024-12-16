@@ -23,7 +23,7 @@ function CustomerRatingStars({ rating }){
 }
 
 CustomerRatingStars.propTypes = {
-    rating : PropTypes.string 
+    rating : PropTypes.number
 }
 
 export default CustomerRatingStars

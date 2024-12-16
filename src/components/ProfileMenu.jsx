@@ -1,19 +1,53 @@
 import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import defaultPic from "/assets/users/default-profile.png";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
-function ProfileMenu({fullName}) {
+function ProfileMenu(props) {
     const location = useLocation();
+    const { setUser } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        const token = localStorage.getItem("token");
+
+        setIsLoading(true);
+        try {
+            if (token) {
+                await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/logout`, {},{
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+            }
+
+            setUser(null);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            toast.success("Logout berhasil");
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+            toast.error("Terjadi kesalahan saat logout");
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <div className="h-full flex flex-col lg:flex-row xl:flex-col border-gray-300 ustify-center items-center border-[1px] rounded-xl p-12 shadow-md gap-y-4">
             <div className="w-full lg:w-1/4 xl:w-full mb-4 lg:mb-0 flex justify-center items-center flex-col">
                 <img
-                    src="https://via.placeholder.com/150"
+                    src={props.user.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.user.photo}` : defaultPic}
                     alt=""
-                    className="rounded-full size-36 shadow-md"
+                    className={`rounded-full size-36 shadow-md ${!props.user.photo ? 'p-2' : ''}`}
                 />
                 <p className="mt-2">
-                    {fullName}
+                    {props.fullName}
                 </p>
             </div>
             <div className="flex flex-col w-3/4 ml-7 xl:ml-0 xl:w-full gap-y-6 justify-start">
@@ -51,27 +85,29 @@ function ProfileMenu({fullName}) {
                         Ubah Password
                     </span>
                 </Link>
-                <Link
-                    to="/profile"
+                <button
+                    type="button"
                     className="group text-lg px-4 flex gap-x-4 items-center"
+                    onClick={handleLogout}
                 >
                     <svg
-                        className="size-6 transition-colors group-hover:fill-primaryColor"
+                        className={`size-6 transition-colors group-hover:fill-deleteColor ${isLoading ? "text-deleteHoverColor" : ""}`}
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
                         <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
                     </svg>
-                    <span className="transition-colors group-hover:text-primaryColor">
-                        Logout
+                    <span className={`transition-colors group-hover:text-deleteColor ${isLoading ? "text-deleteHoverColor" : ""}`}>
+                        {isLoading ? "Sedang logout..." : "Logout"}
                     </span>
-                </Link>
+                </button>
             </div>
         </div>
     )
 };
 
 ProfileMenu.propTypes = {
-    fullName : PropTypes.string
+    fullName: PropTypes.string,
+    user: PropTypes.object
 }
 
 export default ProfileMenu;

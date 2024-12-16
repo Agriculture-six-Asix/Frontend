@@ -1,13 +1,11 @@
-import { useState } from "react";
 import TagsList from "./TagsList"
 import PopUpDiskusi from "./PopUpDiskusi";
 import PropTypes from "prop-types";
 
 function ForumUtils(props) {
-    const [isOpen, setIsOpen] = useState(false);
 
     const togglePopup = () => {
-        setIsOpen(!isOpen);
+        props.setIsOpen(!props.isOpen);
     }
 
     return (
@@ -36,15 +34,21 @@ function ForumUtils(props) {
 
             <div className="flex flex-col gap-y-8 border-[1px] border-gray-300 p-8 rounded-md shadow-md">
                 <button
-                    className="transition-colors bg-primaryColor hover:bg-hoverPrimaryColor py-2 px-12 rounded-md shadow-md"
+                    className={`transition-colors hover:bg-hoverPrimaryColor py-2 px-12 rounded-md shadow-md ${props.user ? "text-white bg-primaryColor" : "bg-hoverPrimaryColor text-gray-300"}`}
                     onClick={togglePopup}
+                    disabled={!props.user}
                 >
                     <h1 className="font-bold text-white text-xl">
-                        Mulai Diskusi
+                        {props.user ? "Mulai Diskusi" : "Login untuk memulai diskusi"}
                     </h1>
                 </button>
-                {isOpen && (
-                    <PopUpDiskusi onClick={togglePopup} />
+                {props.isOpen && (
+                    <PopUpDiskusi
+                        onSubmit={props.onSubmit}
+                        onClick={togglePopup}
+                        tags={props.tags}
+                        isLoading={props.isLoading}
+                    />
                 )}
                 <hr className="border-[1px] border-gray-300" />
                 <p className="text-lg text-primaryColor">
@@ -72,15 +76,29 @@ function ForumUtils(props) {
                 <p className="text-lg text-primaryColor">
                     Tags
                 </p>
-                <TagsList />
+                <TagsList
+                    tags={props.tags}
+                    searchTag={props.searchTag}
+                />
             </div>
         </div>
     )
 };
 
 ForumUtils.propTypes = {
-    onSearchChange : PropTypes.string,
-    onOrderChange : PropTypes.string
+    onSearchChange: PropTypes.func,
+    onOrderChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    tags: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        slug: PropTypes.string
+    })),
+    user: PropTypes.object,
+    isOpen: PropTypes.bool,
+    setIsOpen: PropTypes.func,
+    isLoading: PropTypes.bool,
+    searchTag: PropTypes.string
 }
 
 export default ForumUtils;

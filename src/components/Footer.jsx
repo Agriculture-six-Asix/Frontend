@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function Footer(){
     return(
         <>
@@ -15,7 +17,7 @@ function Footer(){
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-4 text-lg font-medium text-gray-900 dark:text-white">Kontak</h2>
+                            <h2 className="mb-4 text-lg font-medium">Kontak</h2>
                             <ul className="text-black">
                                 <li className="mb-2">
                                     <a href="https://flowbite.com/" className="font-[14px] hover:underline">kebunbibit@gmail.com</a>
@@ -26,18 +28,18 @@ function Footer(){
                             </ul>
                         </div>
                         <div className="mx-auto">
-                            <h2 className="mb-4 text-lg font-medium text-gray-900 dark:text-white">Menu</h2>
+                            <h2 className="mb-4 text-lg font-medium">Menu</h2>
                             <ul className="text-black">
                                 <li className="mb-2">
-                                    <a href="https://github.com/themesberg/flowbite" className="hover:underline ">Profil Akun</a>
+                                    <Link to={"/profile"} className="hover:underline ">Profil Akun</Link>
                                 </li>
                                 <li>
-                                    <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Ulasan</a>
+                                    <Link to={"/ulasan"} className="hover:underline">Ulasan</Link>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-4 text-lg font-medium text-gray-900 dark:text-white">Informasi Lain</h2>
+                            <h2 className="mb-4 text-lg font-medium">Informasi Lain</h2>
                             <ul className="text-black">
                                 <li className="mb-2">
                                     <a href="#" className="hover:underline">FAQ</a>
