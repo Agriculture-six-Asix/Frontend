@@ -106,7 +106,7 @@ function Profile() {
     return (
         <>
             <Navbar />
-            <section className="p-12 md:py-20 xl:px-20 md:px-40 animate-fade-in">
+            <section className="p-12 md:py-20 xl:px-20 md:px-40 animate-fade-in min-h-screen">
                 <div className="flex xl:flex-row flex-col gap-x-8">
                     <div className="w-full order-2 xl:order-1 xl:w-3/4 border-[1px] border-gray-300 rounded-xl p-8 shadow-md">
                         <h2 className="mb-8 text-2xl font-semibold text-primaryColor">
