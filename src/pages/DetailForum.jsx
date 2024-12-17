@@ -50,7 +50,7 @@ function DetailForum() {
     return (
         <>
             <Navbar />
-            <section className="min-h-screen mb-12 px-16 animate-fade-in">
+            <section className="min-h-screen mb-12 px-16 max-md:px-6 animate-fade-in">
                 <Link to={"/forum"} className="
                         text-primaryColor
                         text-2xl

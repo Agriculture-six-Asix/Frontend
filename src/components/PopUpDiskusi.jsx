@@ -22,7 +22,7 @@ function PopUpDiskusi(props) {
         <div
             className="w-full h-screen fixed top-0 left-0 z-50 bg-black bg-opacity-50"
         >
-            <div className="w-2/4 h-fit bg-[#F8F9FA] rounded-md overflow-hidden shadow-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-1/2 max-lg:w-full h-fit bg-[#F8F9FA] rounded-md overflow-hidden shadow-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="flex justify-between bg-primaryColor py-4 px-8">
                     <span className="text-white text-xl">
                         Diskusi Baru

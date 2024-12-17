@@ -39,7 +39,7 @@ function ProfileMenu(props) {
     }
 
     return (
-        <div className="h-full flex flex-col lg:flex-row xl:flex-col border-gray-300 ustify-center items-center border-[1px] rounded-xl p-12 shadow-md gap-y-4">
+        <div className="h-full flex flex-col lg:flex-row xl:flex-col border-gray-300 ustify-center items-center border-[1px] rounded-xl p-12 max-md:py-8 max-md:px-2 shadow-md gap-y-4">
             <div className="w-full lg:w-1/4 xl:w-full mb-4 lg:mb-0 flex justify-center items-center flex-col">
                 <img
                     src={props.user.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.user.photo}` : defaultPic}
@@ -91,7 +91,7 @@ function ProfileMenu(props) {
                     onClick={handleLogout}
                 >
                     <svg
-                        className={`size-6 transition-colors group-hover:fill-deleteColor ${isLoading ? "text-deleteHoverColor" : ""}`}
+                        className={`size-6 transition-colors group-hover:fill-deleteColor ${isLoading ? "fill-deleteHoverColor" : ""}`}
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
                         <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />

@@ -124,11 +124,25 @@ function Forum() {
                     </h1>
                 </FadeIn>
                 <FadeIn>
-                    <div className="grid grid-cols-8 xl:grid-rows-1 justify-between gap-x-16">
+                    <div className="grid grid-cols-8 max-lg:flex max-lg:flex-col xl:grid-rows-1 justify-between gap-x-16">
+                        <div className="col-span-2 row-start-1 mb-12 xl:mb-0">
+                            <ForumUtils
+                                // placeholder for onSearchChange and onOrderChange 
+                                onSearchChange={(e) => handleChangeSearch(e)}
+                                onOrderChange={(e) => handleOrderChange(e)}
+                                onSubmit={handleSubmit}
+                                tags={tags}
+                                user={user}
+                                isLoading={isLoading}
+                                isOpen={isOpen}
+                                setIsOpen={setIsOpen}
+                                searchTag={searchTag}
+                            />
+                        </div>
                         {
                             !isLoading && (
                                 filteredForum.length > 0 ? (
-                                    <div className="col-span-8 xl:col-span-6 flex flex-col gap-y-8">
+                                    <div className="col-span-6 flex flex-col gap-y-8">
                                         {filteredForum.map((value) => (
                                             <Link key={value.id} to={`/forum/${value.id}`}>
                                                 <MainDiskusi
@@ -149,20 +163,6 @@ function Forum() {
                                 )
                             )
                         }
-                        <div className="col-span-8 row-start-1 xl:col-span-2 mb-12 xl:mb-0">
-                            <ForumUtils
-                                // placeholder for onSearchChange and onOrderChange 
-                                onSearchChange={(e) => handleChangeSearch(e)}
-                                onOrderChange={(e) => handleOrderChange(e)}
-                                onSubmit={handleSubmit}
-                                tags={tags}
-                                user={user}
-                                isLoading={isLoading}
-                                isOpen={isOpen}
-                                setIsOpen={setIsOpen}
-                                searchTag={searchTag}
-                            />
-                        </div>
                     </div>
                 </FadeIn>
             </section >

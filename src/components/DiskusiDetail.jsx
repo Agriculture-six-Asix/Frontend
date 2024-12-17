@@ -8,18 +8,18 @@ function DetailDiskusi(props) {
             <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-x-2">
                     <img src={props.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.photo}` : defaultPic} className={`size-8 rounded-full border border-gray-300 ${!props.photo ? 'p-2' : ''}`} alt="Photo" />
-                    <p>{props.nama}</p>
+                    <p className="text-md max-md:text-sm">{props.nama}</p>
                 </div>
-                <p>{formatTimeDifference(props.created_at)}</p>
+                <p className="text-md max-md:text-sm">{formatTimeDifference(props.created_at)}</p>
             </div>
             <div className="ms-10">
                 <div className="mb-8">
-                    <h3 className="text-lg font-bold">{props.judul}</h3>
+                    <h3 className="text-lg font-bold max-md:text-base">{props.judul}</h3>
                     <p className="text-sm">{props.deskripsi}</p>
                 </div>
                 <div className="flex flex-grow gap-x-2 mb-2">
                     {props.tags && props.tags.map((value, index) => (
-                        <div key={index} className="text-sm border-[1px] border-gray-300 rounded-md p-2">
+                        <div key={index} className="text-sm border-[1px] border-gray-300 rounded-md p-2 max-md:text-xs">
                             {value.name}
                         </div>
                     ))}
