@@ -12,10 +12,11 @@ import FadeIn from "../Animation/ScrollAnimation/FadeIn";
 import heroImg from "/assets/heroImg/homepage-heroImg.png";
 import { useEffect, useRef, useState } from "react";
 import Tooltip from "../components/HomePage/Tooltip";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const heroTitle = "Jelajahi Keindahan Kebun Bibit Wonorejo";
-  const heroSubtitle = "Tempat di mana alam dan kehijauan";
+  const heroSubtitle = "Tempat di mana alam dan kehijauan menyatu";
 
   const stickyButtonRef = useRef(null);
   const footerRef = useRef(null);
@@ -71,10 +72,10 @@ function HomePage() {
         </SlideInUp>
       </section>
       <div>
-        <a
+        <Link
           ref={stickyButtonRef}
           id="stickyButton"
-          href="/telusuri"
+          to={"/telusuri"}
           className="bg-primaryColor fixed z-[9999] bottom-10 right-10 w-20 h-20 rounded-full "
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
@@ -88,7 +89,7 @@ function HomePage() {
             />
             {showTooltip && <Tooltip />}
           </div>
-        </a>
+        </Link>
       </div>
       <div id="footer" ref={footerRef}>
         <Footer />

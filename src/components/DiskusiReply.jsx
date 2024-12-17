@@ -9,9 +9,9 @@ function DiskusiReply(props) {
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-x-2">
                         <img src={props.photo ? `${import.meta.env.VITE_APP_API_IMAGE_URL}/user/${props.photo}` : defaultPic} className={`size-8 rounded-full border border-gray-300 ${!props.photo ? 'p-2' : ''}`} alt="Photo" />
-                        <p>{props.name}</p>
+                        <p className="text-md max-md:text-sm">{props.name}</p>
                     </div>
-                    <p>{formatTimeDifference(props.created_at)}</p>
+                    <p className="text-md max-md:text-sm">{formatTimeDifference(props.created_at)}</p>
                 </div>
                 <div className="ms-10">
                     <div className="mb-8">

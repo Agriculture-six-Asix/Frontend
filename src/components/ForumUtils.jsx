@@ -54,7 +54,7 @@ function ForumUtils(props) {
                 <p className="text-lg text-primaryColor">
                     Urut Berdasarkan
                 </p>
-                <form action="" className="">
+                <form>
                     <input
                         type="radio"
                         name="diskusiOrder"

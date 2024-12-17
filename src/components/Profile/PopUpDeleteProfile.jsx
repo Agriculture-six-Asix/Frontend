@@ -5,7 +5,7 @@ function PopUpDeletePhotoProfile(props) {
         <div
             className="w-full h-screen fixed top-0 left-0 z-50 bg-black bg-opacity-50"
         >
-            <div className="w-fit h-fit bg-[#F8F9FA] rounded-md overflow-hidden shadow-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-fit max-md:w-full h-fit bg-[#F8F9FA] rounded-md overflow-hidden shadow-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="flex justify-between bg-primaryColor py-4 px-8">
                     <span className="text-white text-xl">
                         Konfirmasi Hapus Foto Profil

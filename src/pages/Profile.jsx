@@ -106,9 +106,9 @@ function Profile() {
     return (
         <>
             <Navbar />
-            <section className="p-12 md:py-20 xl:px-20 md:px-40 animate-fade-in min-h-screen">
+            <section className="p-12 max-md:p-6 md:py-20 xl:px-20 md:px-40 animate-fade-in min-h-screen">
                 <div className="flex xl:flex-row flex-col gap-x-8">
-                    <div className="w-full order-2 xl:order-1 xl:w-3/4 border-[1px] border-gray-300 rounded-xl p-8 shadow-md">
+                    <div className="w-full order-2 xl:order-1 xl:w-3/4 border-[1px] border-gray-300 rounded-xl p-8 shadow-md max-md:py-8 max-md:px-4">
                         <h2 className="mb-8 text-2xl font-semibold text-primaryColor">
                             Profil Pengguna
                         </h2>
@@ -121,7 +121,7 @@ function Profile() {
                                         className={`rounded-full size-36 lg:mb-12 shadow-md ${!user.photo ? !previewImage ? 'p-2' : '' : ''}`}
                                     />
                                     <div className="flex flex-col gap-y-6 ml-8 lg:ml-0">
-                                        <label className="py-2 px-8 font-semibold rounded-lg transition-colors bg-primaryColor hover:bg-hoverPrimaryColor hover:cursor-pointer text-white shadow-md">
+                                        <label className="text-center py-2 px-8 font-semibold rounded-lg transition-colors bg-primaryColor hover:bg-hoverPrimaryColor hover:cursor-pointer text-white shadow-md">
                                             Ganti Profil
                                             <input
                                                 type="file"
@@ -145,7 +145,7 @@ function Profile() {
                                 </div>
                                 <div className="flex justify-center border-[1px] lg:my-0 my-8">
                                 </div>
-                                <div className="grow flex flex-col justify-between mx-4 lg:mx-10 xl:mx-16">
+                                <div className="grow flex flex-col justify-between mx-0 lg:mx-10 xl:mx-16">
                                     <div className="flex flex-col gap-y-4 mb-12 lg:mb-16">
 
                                         <label htmlFor="fname">
