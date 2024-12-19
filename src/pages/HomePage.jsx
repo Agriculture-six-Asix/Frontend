@@ -11,7 +11,7 @@ import SlideInLeft from "../Animation/ScrollAnimation/SlideInLeft";
 import FadeIn from "../Animation/ScrollAnimation/FadeIn";
 import heroImg from "/assets/heroImg/homepage-heroImg.png";
 import { useEffect, useRef, useState } from "react";
-import Tooltip from "../components/HomePage/Tooltip";
+import Tooltip from "../components/HomePage/ToolTip";
 import { Link } from "react-router-dom";
 
 function HomePage() {
